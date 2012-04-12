@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.abstractmeta.toolbox.compilation</groupId>
+    <artifactId>compilation-toolbox</artifactId>
+    <version>0.1.0</version>
+    <name>compilation-toolbox</name>
+    <url>>http://www.abstractmeta.org/compilation-toolbox</url>
+    <inceptionYear>2011</inceptionYear>
+    <organization>
+        <name>Abstractmeta</name>
+        <url>http://www.abstractmeta.org</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>Apache2</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.2.1</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>11.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>5.9</version>
+            <classifier>jdk15</classifier>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+
+</project>
