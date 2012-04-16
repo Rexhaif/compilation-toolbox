@@ -16,11 +16,22 @@
         </license>
     </licenses>
     <scm>
-        <url>http://compilation-toolbox.googlecode.com/svn/trunk/</url>
+            <url>http://compilation-toolbox.googlecode.com/svn/trunk/</url>
         <connection>scm:svn:http://compilation-toolbox.googlecode.com/svn/trunk/</connection>
         <developerConnection>scm:svn:https://compilation-toolbox.googlecode.com/svn/trunk/</developerConnection>
     </scm>
 
+    <developers>
+        <developer>
+            <id>abstractmeta</id>
+            <name>Adrian Witas</name>
+            <email>abstractmeta@gmail.com</email>
+            <url>http://www.abstractmeta.org</url>
+            <roles>
+                <role>owner</role>
+            </roles>
+        </developer>
+    </developers>
 
     <build>
        <plugins>
@@ -62,7 +73,7 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
+                    <artifactId>maven-gpg-plugin</artifactId>
                 <version>1.4</version>
                 <executions>
                     <execution>
