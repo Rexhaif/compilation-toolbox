@@ -4,10 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.abstractmeta.toolbox.compilation</groupId>
     <artifactId>compilation-toolbox</artifactId>
-    <version>0.2.0</version>
+    <version>0.2.1</version>
     <name>compilation-toolbox</name>
-    <url>http://maven.apache.org</url>
-
+    <url>http://code.google.com/p/compilation-toolbox</url>
+    <description>Java compilation and class loading utility</description>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
     <licenses>
         <license>
             <name>The Apache Software License, Version 2.0</name>
@@ -16,7 +21,7 @@
         </license>
     </licenses>
     <scm>
-            <url>http://compilation-toolbox.googlecode.com/svn/trunk/</url>
+        <url>http://compilation-toolbox.googlecode.com/svn/trunk/</url>
         <connection>scm:svn:http://compilation-toolbox.googlecode.com/svn/trunk/</connection>
         <developerConnection>scm:svn:https://compilation-toolbox.googlecode.com/svn/trunk/</developerConnection>
     </scm>
