@@ -21,9 +21,9 @@
         </license>
     </licenses>
     <scm>
-        <url>http://compilation-toolbox.googlecode.com/svn/trunk/</url>
-        <connection>scm:svn:http://compilation-toolbox.googlecode.com/svn/trunk/</connection>
-        <developerConnection>scm:svn:https://compilation-toolbox.googlecode.com/svn/trunk/</developerConnection>
+        <url>http://compilation-toolbox.googlecode.com/svn/trunk</url>
+        <connection>scm:svn:http://compilation-toolbox.googlecode.com/svn/trunk</connection>
+        <developerConnection>scm:svn:https://compilation-toolbox.googlecode.com/svn/trunk</developerConnection>
     </scm>
 
     <developers>
@@ -37,9 +37,11 @@
             </roles>
         </developer>
     </developers>
-
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <build>
-       <plugins>
+        <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -78,7 +80,7 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-gpg-plugin</artifactId>
+                <artifactId>maven-gpg-plugin</artifactId>
                 <version>1.4</version>
                 <executions>
                     <execution>
