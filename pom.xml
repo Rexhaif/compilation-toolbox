@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.abstractmeta</groupId>
     <artifactId>compilation-toolbox</artifactId>
-    <version>0.3.0</version>
+    <version>0.3.0-SNAPSHOT</version>
     <name>compilation-toolbox</name>
     <url>http://code.google.com/p/compilation-toolbox</url>
     <description>Java compilation and class loading utility</description>
