@@ -27,6 +27,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Provides implementation of JavaSourceCompiler interface.
@@ -59,6 +61,7 @@ import java.util.*;
 
 public class JavaSourceCompilerImpl implements JavaSourceCompiler {
 
+    private final Logger logger = Logger.getLogger(JavaSourceCompilerImpl.class.getName());
 
     private static final List<String> CLASS_PATH_OPTIONS = new ArrayList<String>(Arrays.asList("cp", "classpath"));
 
@@ -88,27 +91,35 @@ public class JavaSourceCompilerImpl implements JavaSourceCompiler {
         JavaCompiler.CompilationTask task = compiler.getTask(null, javaFileManager, diagnostics, compilationOptions, null, sources);
         StringBuilder diagnosticBuilder = new StringBuilder();
         task.call();
+        boolean compilationError = false;
         for (Diagnostic diagnostic : diagnostics.getDiagnostics()) {
-            buildDiagnosticMessage(diagnostic, diagnosticBuilder, registry);
+            compilationError |= buildDiagnosticMessage(diagnostic, diagnosticBuilder, registry);
         }
-        if (!diagnosticBuilder.toString().isEmpty()) {
-            throw new IllegalStateException(diagnosticBuilder.toString());
+        if (diagnosticBuilder.length() > 0) {
+            if (compilationError) {
+                throw new IllegalStateException(diagnosticBuilder.toString());
+            } else {
+                logger.log(Level.WARNING, diagnosticBuilder.toString());
+            }
         }
         result.addClassPathEntries(compilationUnit.getClassPathsEntries());
         return result;
     }
 
-    protected void buildDiagnosticMessage(Diagnostic diagnostic, StringBuilder diagnosticBuilder, JavaFileObjectRegistry registry) {
+    protected boolean buildDiagnosticMessage(Diagnostic diagnostic, StringBuilder diagnosticBuilder, JavaFileObjectRegistry registry) {
         Object source = diagnostic.getSource();
         String sourceErrorDetails = "";
-        JavaSourceFileObject sourceFile = JavaSourceFileObject.class.cast(source);
-        CharSequence sourceCode = sourceFile.getCharContent(true);
-        int startPosition = Math.max((int) diagnostic.getStartPosition() - 10, 0);
-        int endPosition = Math.min(sourceCode.length(), (int) diagnostic.getEndPosition() + 10);
-        sourceErrorDetails = sourceCode.subSequence(startPosition, endPosition) + "";
+        if (source != null) {
+            JavaSourceFileObject sourceFile = JavaSourceFileObject.class.cast(source);
+            CharSequence sourceCode = sourceFile.getCharContent(true);
+            int startPosition = Math.max((int) diagnostic.getStartPosition() - 10, 0);
+            int endPosition = Math.min(sourceCode.length(), (int) diagnostic.getEndPosition() + 10);
+            sourceErrorDetails = sourceCode.subSequence(startPosition, endPosition) + "";
+        }
         diagnosticBuilder.append(diagnostic.getMessage(null));
         diagnosticBuilder.append("\n");
         diagnosticBuilder.append(sourceErrorDetails);
+        return diagnostic.getKind().equals(Diagnostic.Kind.ERROR);
     }
 
     protected Collection<String> buildOptions(CompilationUnit compilationUnit, SimpleClassLoader classLoader, String... options) {

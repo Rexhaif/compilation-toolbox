@@ -134,7 +134,6 @@ public class SimpleClassLoader extends ClassLoader {
             for (int i = 0; i < jarFiles.size(); i++) {
                 jarFile = jarFiles.get(i);
                 JarEntry jarEntry = jarFile.getJarEntry(internalClassName);
-                System.out.println(internalClassName + " " + jarEntry + " " + jarFile.getName());
                 if (jarEntry != null) {
                     InputStream inputStream = jarFile.getInputStream(jarEntry);
                     try {

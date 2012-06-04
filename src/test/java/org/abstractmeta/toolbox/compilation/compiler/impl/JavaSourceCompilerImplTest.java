@@ -135,6 +135,32 @@ public class JavaSourceCompilerImplTest {
 
     }
 
+
+
+    @SuppressWarnings("unchecked")
+    public void testCompilationWarningClasses() throws Exception {
+        JavaSourceCompiler javaSourceCompiler = new JavaSourceCompilerImpl();
+        File compilationRoot = new File("target/compilation-root");
+        compilationRoot.mkdirs();
+        JavaSourceCompiler.CompilationUnit compilationUnit = javaSourceCompiler.createCompilationUnit(compilationRoot);
+        String javaSourceCode = "   " +
+                "package com.test.foo;" +
+                "import java.util.Map;\n" +
+                "import java.util.HashMap;\n" +
+
+                "public class Foo {\n" +
+                "        public static void main(String [] args) {\n" +
+                "          Map<String, String> map = new HashMap();\n" +
+                "        }\n" +
+                "}";
+
+        compilationUnit.addJavaSource("com.test.foo.Foo", javaSourceCode);
+        javaSourceCompiler.compile(compilationUnit);
+        javaSourceCompiler.persistCompiledClasses(compilationUnit);
+        Assert.assertTrue(compilationRoot.list().length > 0);
+
+    }
+
     @SuppressWarnings("unchecked")
     public void testPersistCompiledClassesWithNonExistingRoot() throws Exception {
         JavaSourceCompiler javaSourceCompiler = new JavaSourceCompilerImpl();
