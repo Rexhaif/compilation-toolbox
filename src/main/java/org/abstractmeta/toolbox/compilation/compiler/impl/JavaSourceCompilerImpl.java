@@ -19,6 +19,7 @@ package org.abstractmeta.toolbox.compilation.compiler.impl;
 import org.abstractmeta.toolbox.compilation.compiler.JavaSourceCompiler;
 import org.abstractmeta.toolbox.compilation.compiler.registry.JavaFileObjectRegistry;
 import org.abstractmeta.toolbox.compilation.compiler.registry.impl.JavaFileObjectRegistryImpl;
+import org.abstractmeta.toolbox.compilation.compiler.util.OsUtil;
 import org.abstractmeta.toolbox.compilation.compiler.util.URIUtil;
 import com.google.common.io.Files;
 
@@ -64,6 +65,7 @@ public class JavaSourceCompilerImpl implements JavaSourceCompiler {
     private final Logger logger = Logger.getLogger(JavaSourceCompilerImpl.class.getName());
 
     private static final List<String> CLASS_PATH_OPTIONS = new ArrayList<String>(Arrays.asList("cp", "classpath"));
+    private static final String CLASS_PATH_DELIMITER = OsUtil.isWindows() ? ";" : ":";
 
     @Override
     public ClassLoader compile(CompilationUnit compilationUnit, String... options) {
@@ -155,7 +157,7 @@ public class JavaSourceCompilerImpl implements JavaSourceCompiler {
         StringBuilder classPathBuilder = new StringBuilder();
         for (String entry : compilationUnit.getClassPathsEntries()) {
             if (classPathBuilder.length() > 0) {
-                classPathBuilder.append(":");
+                classPathBuilder.append(CLASS_PATH_DELIMITER);
             }
             classPathBuilder.append(entry);
         }
@@ -166,7 +168,8 @@ public class JavaSourceCompilerImpl implements JavaSourceCompiler {
 
 
     protected void addClassPath(CompilationUnit result, String classPath) {
-        String[] classPathEntries = classPath.split(":");
+        String[] classPathEntries = classPath.split(CLASS_PATH_DELIMITER);
+
         for (String classPathEntry : classPathEntries) {
             result.addClassPathEntry(classPathEntry);
         }
@@ -246,6 +249,12 @@ public class JavaSourceCompilerImpl implements JavaSourceCompiler {
         public File getOutputClassDirectory() {
             return outputClassDirectory;
         }
+    }
+
+    public boolean isWindows() {
+        String os = System.getProperty("os.name").toLowerCase();
+        return (os.contains("win"));
+
     }
 
 }
