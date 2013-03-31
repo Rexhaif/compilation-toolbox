@@ -162,6 +162,9 @@ public class JavaSourceCompilerImplTest {
     }
 
     @SuppressWarnings("unchecked")
+    /**
+     * This test has changed, initially when compilationRoot did not exist, this method did not persist
+     */
     public void testPersistCompiledClassesWithNonExistingRoot() throws Exception {
         JavaSourceCompiler javaSourceCompiler = new JavaSourceCompilerImpl();
         File compilationRoot = new File("target/non-existing-compilation-root");
@@ -188,7 +191,7 @@ public class JavaSourceCompilerImplTest {
         }
         javaSourceCompiler.compile(compilationUnit);
         javaSourceCompiler.persistCompiledClasses(compilationUnit);
-        Assert.assertTrue(!compilationRoot.exists());
+        Assert.assertTrue(compilationRoot.exists());
 
     }
 
