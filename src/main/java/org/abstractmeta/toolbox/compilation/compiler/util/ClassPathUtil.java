@@ -15,18 +15,38 @@
  */
 package org.abstractmeta.toolbox.compilation.compiler.util;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+
 /**
- * Represents OsUtil
- * <p>
- * </p>
+ * ClassPath utility methods.
  *
  * @author Adrian Witas
  */
-public class OsUtil {
+public class ClassPathUtil {
+
     private static String OS = System.getProperty("os.name").toLowerCase();
 
     public static boolean isWindows() {
         return OS.contains("win");
+    }
+
+
+    public static String getClassPathSeparator() {
+        return isWindows() ? ";" : ":";
+    }
+
+    /**
+     * Returns current jvm class path entries
+     * This method read java.class.path property
+     * @return class path entries.
+     */
+    public static Collection<String> getClassPathEntries() {
+        String classPath = System.getProperty("java.class.path", "");
+        Collection<String> result = new ArrayList<String>();
+        Collections.addAll(result, classPath.split(getClassPathSeparator()));
+        return result;
     }
 
 }

@@ -19,7 +19,7 @@ package org.abstractmeta.toolbox.compilation.compiler.impl;
 import org.abstractmeta.toolbox.compilation.compiler.JavaSourceCompiler;
 import org.abstractmeta.toolbox.compilation.compiler.registry.JavaFileObjectRegistry;
 import org.abstractmeta.toolbox.compilation.compiler.registry.impl.JavaFileObjectRegistryImpl;
-import org.abstractmeta.toolbox.compilation.compiler.util.OsUtil;
+import org.abstractmeta.toolbox.compilation.compiler.util.ClassPathUtil;
 import org.abstractmeta.toolbox.compilation.compiler.util.URIUtil;
 import com.google.common.io.Files;
 
@@ -65,7 +65,7 @@ public class JavaSourceCompilerImpl implements JavaSourceCompiler {
     private final Logger logger = Logger.getLogger(JavaSourceCompilerImpl.class.getName());
 
     private static final List<String> CLASS_PATH_OPTIONS = new ArrayList<String>(Arrays.asList("cp", "classpath"));
-    private static final String CLASS_PATH_DELIMITER = OsUtil.isWindows() ? ";" : ":";
+    private static final String CLASS_PATH_DELIMITER = ClassPathUtil.getClassPathSeparator();
 
     @Override
     public ClassLoader compile(CompilationUnit compilationUnit, String... options) {
@@ -178,7 +178,7 @@ public class JavaSourceCompilerImpl implements JavaSourceCompiler {
 
     @Override
     public CompilationUnit createCompilationUnit() {
-        File outputDirectory = new File(System.getProperty("java.io.tmpdir"), "compiled-code");
+        File outputDirectory = new File(System.getProperty("java.io.tmpdir"), "compiled-code_" + System.currentTimeMillis());
         return createCompilationUnit(outputDirectory);
     }
 
@@ -192,7 +192,7 @@ public class JavaSourceCompilerImpl implements JavaSourceCompiler {
         JavaFileObjectRegistry registry = compilationUnit.getRegistry();
         File classOutputDirectory = compilationUnit.getOutputClassDirectory();
         if (!classOutputDirectory.exists()) {
-            return;
+            if(!classOutputDirectory.mkdirs()) throw new IllegalStateException("Failed to create directory " +classOutputDirectory.getAbsolutePath());
         }
         for (JavaFileObject javaFileObject : registry.get(JavaFileObject.Kind.CLASS)) {
             String internalName = javaFileObject.getName().substring(1);
@@ -249,12 +249,6 @@ public class JavaSourceCompilerImpl implements JavaSourceCompiler {
         public File getOutputClassDirectory() {
             return outputClassDirectory;
         }
-    }
-
-    public boolean isWindows() {
-        String os = System.getProperty("os.name").toLowerCase();
-        return (os.contains("win"));
-
     }
 
 }

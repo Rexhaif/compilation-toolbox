@@ -134,6 +134,14 @@ public interface JavaSourceCompiler {
      */
     interface CompilationUnit {
 
+        /**
+         * Adds class path entry to java compiler
+         * <p><b>Note</b> that if at least one entry is added,  the current jvm class path entries are not included.
+         * You can retrieve current jvm class path entries from {@link org.abstractmeta.toolbox.compilation.compiler.util.ClassPathUtil.getClassPathEntries}
+         *
+         * </p>
+         * @param classPathEntry class path entires
+         */
         void addClassPathEntry(String classPathEntry);
 
         void addClassPathEntries(Collection<String> classPathEntries);
