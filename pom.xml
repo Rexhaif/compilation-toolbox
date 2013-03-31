@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.abstractmeta</groupId>
     <artifactId>compilation-toolbox</artifactId>
-    <version>0.3.3-SNAPSHOT</version>
+    <version>0.3.3</version>
     <name>compilation-toolbox</name>
     <url>http://code.google.com/p/compilation-toolbox</url>
     <description>Java compilation and class loading utility</description>
@@ -20,9 +20,9 @@
         </license>
     </licenses>
     <scm>
-        <url>http://compilation-toolbox.googlecode.com/svn/trunk</url>
-        <connection>scm:svn:http://compilation-toolbox.googlecode.com/svn/trunk</connection>
-        <developerConnection>scm:svn:https://compilation-toolbox.googlecode.com/svn/trunk</developerConnection>
+        <url>http://compilation-toolbox.googlecode.com/svn/tags/compilation-toolbox-0.3.3</url>
+        <connection>scm:svn:http://compilation-toolbox.googlecode.com/svn/tags/compilation-toolbox-0.3.3</connection>
+        <developerConnection>scm:svn:https://compilation-toolbox.googlecode.com/svn/tags/compilation-toolbox-0.3.3</developerConnection>
     </scm>
 
     <developers>
